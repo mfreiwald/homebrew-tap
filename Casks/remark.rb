@@ -1,0 +1,34 @@
+# Homebrew Cask for the Remark macOS app. The `remark` CLI ships INSIDE the app bundle
+# (Contents/Helpers/remark-cli) for both distributions, so the cask installs the GUI and exposes the CLI
+# via the `binary` stanza below — no separate CLI download. (Mac App Store users get the app from the
+# Store; the in-app "Install Command-Line Tool…" menu links the CLI there.)
+#
+# TEMPLATE — release.yml fills in the real `version` + `sha256` (of Remark.dmg) and pushes this to the tap
+# (e.g. `mfreiwald/homebrew-tap`) so `brew install --cask mfreiwald/tap/remark` works. The `url` derives
+# from `version`, so only those two fields change per release.
+cask "remark" do
+  version "2026.4.0"
+  sha256 "81f1f9236457c87e86e1d4a912d66b13f838346e299d0e4ff82931b17b042980"
+
+  url "https://github.com/mfreiwald/remark/releases/download/v#{version}/Remark.dmg"
+  name "Remark"
+  desc "Markdown review tool for AI-assisted workflows"
+  homepage "https://getremark.app"
+
+  depends_on macos: ">= :sonoma" # macOS 14+, matches the app's deployment target
+
+  app "Remark.app"
+  # Expose the bundled CLI as `remark` on $PATH — the same binary the in-app installer links. Talks to the
+  # running app over its localhost MCP server (HTTP), or runs `remark mcp` as a stdio proxy for stdio agents.
+  binary "#{appdir}/Remark.app/Contents/Helpers/remark-cli", target: "remark"
+
+  zap trash: [
+    "~/Library/Application Support/dev.freiwald.remark",
+    "~/.config/remark",
+  ]
+
+  caveats <<~EOS
+    `remark` talks to the running Remark app over its localhost MCP server, so launch Remark
+    (and unlock Pro) before using `remark cli …` or registering `remark mcp` with an agent.
+  EOS
+end
