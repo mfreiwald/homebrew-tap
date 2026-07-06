@@ -6,11 +6,15 @@
 # TEMPLATE — release.yml fills in the real `version` + `sha256` (of Remark.dmg) and pushes this to the tap
 # (e.g. `mfreiwald/homebrew-tap`) so `brew install --cask mfreiwald/tap/remark` works. The `url` derives
 # from `version`, so only those two fields change per release.
+#
+# `url` points at the public R2/CDN mirror (updates.getremark.app), NOT a GitHub release: the source repo
+# `mfreiwald/remark` is PRIVATE, so its release assets 404 for anonymous `brew` users. R2 already hosts
+# the byte-identical DMG (same sha256) as the Sparkle update source. Don't repoint this at GitHub.
 cask "remark" do
   version "2026.4.0"
   sha256 "81f1f9236457c87e86e1d4a912d66b13f838346e299d0e4ff82931b17b042980"
 
-  url "https://github.com/mfreiwald/remark/releases/download/v#{version}/Remark.dmg"
+  url "https://updates.getremark.app/stable/#{version}/Remark.dmg"
   name "Remark"
   desc "Markdown review tool for AI-assisted workflows"
   homepage "https://getremark.app"
