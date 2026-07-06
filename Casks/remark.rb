@@ -19,7 +19,7 @@ cask "remark" do
   desc "Markdown review tool for AI-assisted workflows"
   homepage "https://getremark.app"
 
-  depends_on macos: ">= :sonoma" # macOS 14+, matches the app's deployment target
+  depends_on macos: :sonoma # macOS 14+ (>= Sonoma), matches the app's deployment target
 
   app "Remark.app"
   # Expose the bundled CLI as `remark` on $PATH — the same binary the in-app installer links. Talks to the
