@@ -11,8 +11,8 @@
 # `mfreiwald/remark` is PRIVATE, so its release assets 404 for anonymous `brew` users. R2 already hosts
 # the byte-identical DMG (same sha256) as the Sparkle update source. Don't repoint this at GitHub.
 cask "remark" do
-  version "2026.5.0"
-  sha256 "73b7878d291cc077b8f6617d398bb7e44192d343eb01edaaf3e4281c8cfaca0b"
+  version "2026.6.0"
+  sha256 "0e25195df5cf086c4c2979da3d707a618d6fb5277adbf4da44020585b2c05068"
 
   url "https://updates.getremark.app/stable/#{version}/Remark.dmg"
   name "Remark"
